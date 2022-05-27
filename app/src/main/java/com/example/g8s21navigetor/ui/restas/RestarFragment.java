@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.g8s21navigetor.R;
+import com.example.g8s21navigetor.ui.divides.DividirViewModel;
 
 public class RestarFragment extends Fragment implements View.OnClickListener{
     EditText txtnum1, txtnum2;
@@ -43,12 +44,14 @@ public class RestarFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(RestarViewModel.class);
         txtnum1 = view.findViewById(R.id.txtRnum1);
         txtnum2 = view.findViewById(R.id.txtRnum2);
         btncalcularR = view.findViewById(R.id.btncalculaR);
         lblResultR = view.findViewById(R.id.lblresultR);
 
         btncalcularR.setOnClickListener(this);
+        lblResultR.setText(String.valueOf(mViewModel.getResultR()));
     }
     @Override
     public void onClick(View view) {
@@ -57,7 +60,8 @@ public class RestarFragment extends Fragment implements View.OnClickListener{
                 int num1 = Integer.parseInt(txtnum1.getText().toString());
                 int num2 = Integer.parseInt(txtnum2.getText().toString());
                 int result = num1 - num2;
-                lblResultR.setText(String.valueOf(result));
+                mViewModel.setResultR(result);
+                lblResultR.setText(String.valueOf(mViewModel.getResultR()));
                 break;
         }
     }

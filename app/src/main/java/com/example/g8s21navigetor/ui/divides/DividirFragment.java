@@ -42,11 +42,13 @@ public class DividirFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(DividirViewModel.class);
         txtnum1 = view.findViewById(R.id.txtnum1D);
         txtnum2 = view.findViewById(R.id.txtnum2D);
         btncalcular = view.findViewById(R.id.btncalcularD);
         lblresult = view.findViewById(R.id.lblresultD);
         btncalcular.setOnClickListener(this);
+        lblresult.setText(String.valueOf(mViewModel.getResultD()));
     }
     @Override
     public void onClick(View view) {
@@ -56,9 +58,10 @@ public class DividirFragment extends Fragment implements View.OnClickListener {
                 int num2 = Integer.parseInt(txtnum2.getText().toString());
                 if (num2!=0){
                     int result = num1/num2;
-                    lblresult.setText(String.valueOf(result));
+                    mViewModel.setResultD(result);
+                    lblresult.setText(String.valueOf(mViewModel.getResultD()));
                 } else {
-                    lblresult.setText("No se puede dividir entre 0");
+
                 }
                 break;
         }

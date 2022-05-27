@@ -45,13 +45,14 @@ public class SumarFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mViewModel = new ViewModelProvider(this).get(SumarViewModel.class);
         txtnum1 = view.findViewById(R.id.txtRnum1);
         txtnum2 = view.findViewById(R.id.txtnum2);
         btncalcula = view.findViewById(R.id.btncalcula);
         lblresult = view.findViewById(R.id.lblresul);
 
         btncalcula.setOnClickListener(this);
+        lblresult.setText(String.valueOf(mViewModel.getResultS()));
     }
 
     @Override
@@ -61,7 +62,8 @@ public class SumarFragment extends Fragment implements View.OnClickListener {
                 int num1 = Integer.parseInt(txtnum1.getText().toString());
                 int num2 = Integer.parseInt(txtnum2.getText().toString());
                 int resul = num1 + num2;
-                lblresult.setText(String.valueOf(resul));
+                mViewModel.setResultS(resul);
+                lblresult.setText(String.valueOf(mViewModel.getResultS()));
                 break;
         }
     }

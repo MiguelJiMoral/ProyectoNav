@@ -43,11 +43,13 @@ public class MultiplicarFragment extends Fragment implements View.OnClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(MultiplicarViewModel.class);
         txtnum1 = view.findViewById(R.id.txtnum1M);
         txtnum2 = view.findViewById(R.id.txtnum2M);
         btncalcular = view.findViewById(R.id.btncalcularM);
         lblresult = view.findViewById(R.id.lblresultM);
         btncalcular.setOnClickListener(this);
+        lblresult.setText(String.valueOf(mViewModel.getResultM()));
     }
 
     @Override
@@ -57,7 +59,8 @@ public class MultiplicarFragment extends Fragment implements View.OnClickListene
                 int num1 = Integer.parseInt(txtnum1.getText().toString());
                 int num2 = Integer.parseInt(txtnum2.getText().toString());
                 int result = num1 * num2;
-                lblresult.setText(String.valueOf(result));
+                mViewModel.setResultM(result);
+                lblresult.setText(String.valueOf(mViewModel.getResultM()));
                 break;
         }
     }
